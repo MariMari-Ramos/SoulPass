@@ -1,10 +1,11 @@
+import MainLayout from './layouts/MainLayout/MainLayout'
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold">
-        SoulPass
-      </h1>
-    </div>
+    <MainLayout>
+      <h1>Teste do MainLayout</h1>
+      <p>Se você está vendo isso, o layout está funcionando.</p>
+    </MainLayout>
   )
 }
 
