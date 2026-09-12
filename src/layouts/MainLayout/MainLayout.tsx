@@ -1,12 +1,10 @@
+import { Outlet } from 'react-router-dom'
+
 import Header from '../../components/Header/Header'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Footer from '../../components/Footer/Footer'
 
-interface MainLayoutProps {
-  children: React.ReactNode
-}
-
-function MainLayout({ children }: MainLayoutProps) {
+function MainLayout() {
   return (
     <div className="min-h-screen">
 
@@ -17,7 +15,7 @@ function MainLayout({ children }: MainLayoutProps) {
         <Header />
 
         <main className="flex-1">
-          {children}
+          <Outlet />
         </main>
 
         <Footer />

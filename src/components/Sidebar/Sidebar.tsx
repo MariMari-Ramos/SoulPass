@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function Sidebar() {
   return (
     <aside
@@ -38,8 +40,8 @@ function Sidebar() {
 
           {/* INÍCIO */}
           <li>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="
                 flex
                 items-center
@@ -65,14 +67,14 @@ function Sidebar() {
               >
                 Início
               </span>
-            </a>
+            </Link>
           </li>
 
 
           {/* QUEM SOMOS */}
           <li>
-            <a
-              href="/sobre"
+            <Link
+              to="/sobre"
               className="
                 flex
                 items-center
@@ -98,14 +100,14 @@ function Sidebar() {
               >
                 Quem Somos
               </span>
-            </a>
+            </Link>
           </li>
 
 
           {/* SOBRE */}
           <li>
-            <a
-              href="/sobre"
+            <Link 
+                to="/sobre"
               className="
                 flex
                 items-center
@@ -131,14 +133,14 @@ function Sidebar() {
               >
                 Sobre
               </span>
-            </a>
+            </Link>
           </li>
 
 
           {/* FAQ */}
           <li>
-            <a
-              href="/faq"
+            <Link
+              to="/faq"
               className="
                 flex
                 items-center
@@ -164,14 +166,14 @@ function Sidebar() {
               >
                 FAQ
               </span>
-            </a>
+            </Link>
           </li>
 
 
           {/* CONTATO */}
           <li>
-            <a
-              href="/contato"
+            <Link
+              to="/contato"
               className="
                 flex
                 items-center
@@ -197,7 +199,7 @@ function Sidebar() {
               >
                 Contato
               </span>
-            </a>
+            </Link>
           </li>
 
         </ul>
