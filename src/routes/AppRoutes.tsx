@@ -3,6 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import Home from '../pages/Home'
 
+import Solucao from '../pages/Solucao/Solucao'
+import Login from '../pages/Solucao/Login'
+import Cadastro from '../pages/Solucao/Cadastro'
+import Feed from '../pages/Solucao/Feed'
+import Perfil from '../pages/Solucao/Perfil'
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -35,9 +41,25 @@ function AppRoutes() {
             element={<h1>Integrantes</h1>}
           />
 
-          <Route
-            path="/solucao"
-            element={<h1>Solução</h1>}
+          <Route 
+            path="/solucao" 
+            element={<Solucao />} 
+          />
+          <Route 
+            path="/solucao/login"
+             element={<Login />} 
+          />
+          <Route 
+            path="/solucao/cadastro" 
+            element={<Cadastro />} 
+          />
+          <Route 
+            path="/solucao/feed"
+            element={<Feed />} 
+          />
+          <Route 
+            path="/solucao/perfil" 
+            element={<Perfil />} 
           />
 
         </Route>
