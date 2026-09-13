@@ -22,7 +22,7 @@ function Integrantes() {
             mb-6
             text-3xl
             font-bold
-            text-white
+            text-black
             md:text-4xl
           "
         >
@@ -35,7 +35,7 @@ function Integrantes() {
             max-w-3xl
             text-base
             leading-relaxed
-            text-white/90
+            text-black/80
             md:text-lg
           "
         >

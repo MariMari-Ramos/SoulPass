@@ -22,7 +22,7 @@ function Sobre() {
             mb-6
             text-3xl
             font-bold
-            text-white
+            text-black
             md:text-4xl
           "
         >
@@ -35,7 +35,7 @@ function Sobre() {
             max-w-3xl
             text-base
             leading-relaxed
-            text-white/90
+            text-black/80
             md:text-lg
           "
         >
@@ -59,7 +59,7 @@ function Sobre() {
           Nossa Missão
         </h2>
 
-        <div className="space-y-4 text-base leading-relaxed text-white/90 md:text-lg">
+        <div className="space-y-4 text-base leading-relaxed text-black/80 md:text-lg">
           <p>
             Acreditamos que pequenas mudanças de comportamento, quando
             multiplicadas por milhares de pessoas, transformam cidades.
@@ -163,11 +163,11 @@ function Sobre() {
 
       {/* CTA para equipe */}
       <section className="mx-auto mt-16 max-w-5xl pb-10 text-center">
-        <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+        <h2 className="mb-4 text-2xl font-bold text-black md:text-3xl">
           Conheça quem está por trás do projeto
         </h2>
 
-        <p className="mb-6 text-base text-white/90 md:text-lg">
+        <p className="mb-6 text-base text-black/80 md:text-lg">
           Veja os integrantes responsáveis pelo desenvolvimento do SoulPass.
         </p>
 

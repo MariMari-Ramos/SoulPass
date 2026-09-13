@@ -21,7 +21,7 @@ function IntegranteDetalhe() {
   if (!integrante) {
     return (
       <div className="px-6 py-10 text-center md:px-10 lg:px-16">
-        <h1 className="mb-4 text-2xl font-bold text-white">
+        <h1 className="mb-4 text-2xl font-bold text-black">
           Integrante não encontrado
         </h1>
 
