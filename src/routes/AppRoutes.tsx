@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import Home from '../pages/Home'
+import Sobre from '../pages/Sobre/Sobre'
 
 import Solucao from '../pages/Solucao/Solucao'
 import Login from '../pages/Solucao/Login'
@@ -23,7 +24,7 @@ function AppRoutes() {
 
           <Route
             path="/sobre"
-            element={<h1>Sobre</h1>}
+            element={<Sobre />}
           />
 
           <Route
