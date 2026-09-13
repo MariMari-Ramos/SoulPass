@@ -4,6 +4,7 @@ import MainLayout from '../layouts/MainLayout/MainLayout'
 import Home from '../pages/Home'
 import Sobre from '../pages/Sobre/Sobre'
 import Integrantes from '../pages/Integrantes/Integrantes'
+import IntegranteDetalhe from '../pages/Integrantes/IntegranteDetalhe'
 
 import Solucao from '../pages/Solucao/Solucao'
 import Login from '../pages/Solucao/Login'
@@ -41,6 +42,11 @@ function AppRoutes() {
           <Route
             path="/integrantes"
             element={<Integrantes />}
+          />
+
+          <Route
+            path="/integrantes/:id"
+            element={<IntegranteDetalhe />}
           />
 
           <Route 
