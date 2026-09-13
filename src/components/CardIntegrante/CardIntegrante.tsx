@@ -27,12 +27,13 @@ function CardIntegrante({
         items-center
         rounded-2xl
         bg-[#2d2d2d]
-        p-6
+        p-5
         text-center
         transition
         duration-300
         hover:-translate-y-1
         hover:shadow-xl
+        sm:p-6
       "
     >
       <img
@@ -40,16 +41,18 @@ function CardIntegrante({
         alt={`Foto de ${nome}`}
         className="
           mb-4
-          h-28
-          w-28
+          h-24
+          w-24
           rounded-full
           border-4
           border-[#1193a0]
           object-cover
+          sm:h-28
+          sm:w-28
         "
       />
 
-      <h3 className="text-xl font-bold text-white">
+      <h3 className="text-lg font-bold text-white sm:text-xl">
         {nome}
       </h3>
 

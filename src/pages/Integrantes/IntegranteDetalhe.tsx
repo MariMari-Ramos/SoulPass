@@ -54,8 +54,9 @@ function IntegranteDetalhe() {
           items-center
           rounded-2xl
           bg-[#2d2d2d]
-          p-8
+          p-6
           text-center
+          sm:p-8
         "
       >
         <img
@@ -63,12 +64,14 @@ function IntegranteDetalhe() {
           alt={`Foto de ${integrante.nome}`}
           className="
             mb-5
-            h-32
-            w-32
+            h-24
+            w-24
             rounded-full
             border-4
             border-[#1193a0]
             object-cover
+            sm:h-32
+            sm:w-32
           "
         />
 
@@ -80,7 +83,7 @@ function IntegranteDetalhe() {
           RM {integrante.rm} · {integrante.turma}
         </p>
 
-        <div className="mt-6 flex items-center gap-6">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <a
             href={integrante.github}
             target="_blank"

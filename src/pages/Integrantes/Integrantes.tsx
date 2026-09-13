@@ -46,11 +46,13 @@ function Integrantes() {
       <section
         className="
           mx-auto
-          mt-12
+          mt-8
           grid
           max-w-5xl
           grid-cols-1
-          gap-6
+          gap-5
+          sm:mt-12
+          sm:gap-6
           sm:grid-cols-2
           lg:grid-cols-3
         "
