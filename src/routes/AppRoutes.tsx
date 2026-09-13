@@ -1,0 +1,71 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import MainLayout from '../layouts/MainLayout/MainLayout'
+
+import Solucao from '../pages/Solucao/Solucao'
+import Login from '../pages/Solucao/Login'
+import Cadastro from '../pages/Solucao/Cadastro'
+import Feed from '../pages/Solucao/Feed'
+import Perfil from '../pages/Solucao/Perfil'
+
+function AppRoutes() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        <Route element={<MainLayout />}>
+
+          <Route
+            path="/"
+            element={<h1>Home</h1>}
+          />
+
+          <Route
+            path="/sobre"
+            element={<h1>Sobre</h1>}
+          />
+
+          <Route
+            path="/faq"
+            element={<h1>FAQ</h1>}
+          />
+
+          <Route
+            path="/contato"
+            element={<h1>Contato</h1>}
+          />
+
+          <Route
+            path="/integrantes"
+            element={<h1>Integrantes</h1>}
+          />
+
+          <Route 
+            path="/solucao" 
+            element={<Solucao />} 
+          />
+          <Route 
+            path="/solucao/login"
+             element={<Login />} 
+          />
+          <Route 
+            path="/solucao/cadastro" 
+            element={<Cadastro />} 
+          />
+          <Route 
+            path="/solucao/feed"
+            element={<Feed />} 
+          />
+          <Route 
+            path="/solucao/perfil" 
+            element={<Perfil />} 
+          />
+
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default AppRoutes
