@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function Header() {
   return (
     <header
@@ -16,7 +18,8 @@ function Header() {
       "
     >
       <div className="flex items-center gap-2 md:gap-4">
-        <button
+        <Link
+          to="/solucao/login"
           className="
             rounded-lg
             bg-white
@@ -32,10 +35,11 @@ function Header() {
             md:text-base
           "
         >
-          Configurações
-        </button>
+          Entrar
+        </Link>
 
-        <button
+        <Link
+          to="/solucao/cadastro"
           className="
             rounded-lg
             bg-[#1193a0]
@@ -51,8 +55,8 @@ function Header() {
             md:text-base
           "
         >
-          Perfil
-        </button>
+          Criar conta
+        </Link>
       </div>
     </header>
   )
