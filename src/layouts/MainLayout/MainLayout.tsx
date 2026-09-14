@@ -12,7 +12,7 @@ function MainLayout({ children }: MainLayoutProps) {
 
       <Sidebar />
 
-      <div className="ml-20 flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col md:ml-20">
 
         <Header />
 
