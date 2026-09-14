@@ -1,289 +1,353 @@
-import { Link } from "react-router-dom"
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function Sidebar() {
+  const [menuAberto, setMenuAberto] = useState(false)
+
   return (
-    <aside
-      className="
-        group
-        fixed
-        left-0
-        top-0
-        z-50
-        h-screen
-        w-20
-        bg-[#2d2d2d]
-        text-white
-        transition-all
-        duration-300
-        hover:w-50
-        flex
-        flex-col
-        items-center
-        py-6
-      "
-    >
+    <>
+      {/* BOTÃO MOBILE */}
+      <button
+        type="button"
+        aria-label="Abrir menu"
+        onClick={() => setMenuAberto(true)}
+        className="
+          fixed
+          left-4
+          top-3
+          z-[60]
+          flex
+          h-10
+          w-10
+          items-center
+          justify-center
+          rounded-lg
+          bg-[#2d2d2d]
+          text-2xl
+          text-white
+          md:hidden
+        "
+      >
+        ☰
+      </button>
 
-      {/* LOGO */}
-      <div className="mb-10 flex justify-center">
-        <img
-          src="/src/assets/images/SoulUpLogo.png"
-          alt="Logo SoulPass"
-          className="h-12 w-12 object-contain"
+      {/* FUNDO ESCURO MOBILE */}
+      {menuAberto && (
+        <button
+          type="button"
+          aria-label="Fechar menu"
+          onClick={() => setMenuAberto(false)}
+          className="
+            fixed
+            inset-0
+            z-40
+            bg-black/50
+            md:hidden
+          "
         />
-      </div>
+      )}
 
+      {/* SIDEBAR MOBILE */}
+      <aside
+        className={`
+          fixed
+          left-0
+          top-0
+          z-50
+          flex
+          h-screen
+          w-64
+          flex-col
+          bg-[#2d2d2d]
+          px-4
+          py-6
+          text-white
+          transition-transform
+          duration-300
+          md:hidden
+          ${menuAberto ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+        <div className="mb-8 flex items-center justify-between">
+          <img
+            src="/src/assets/images/SoulUpLogo.png"
+            alt="Logo SoulPass"
+            className="h-12 w-12 object-contain"
+          />
 
-      {/* MENU PRINCIPAL */}
-      <nav className="flex-1 w-full">
+          <button
+            type="button"
+            aria-label="Fechar menu"
+            onClick={() => setMenuAberto(false)}
+            className="text-2xl text-white"
+          >
+            ×
+          </button>
+        </div>
 
-        <ul className="flex flex-col gap-4">
-
-          {/* INÍCIO */}
-          <li>
-            <Link
-              to="/"
-              className="
-                flex
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/home.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
+        <nav className="flex-1">
+          <ul className="flex flex-col gap-3">
+            <li>
+              <Link
+                to="/"
+                onClick={() => setMenuAberto(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
-                Início
-              </span>
-            </Link>
-          </li>
+                <img
+                  src="/src/assets/icons/home.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>Início</span>
+              </Link>
+            </li>
 
-
-          {/* QUEM SOMOS */}
-          <li>
-            <Link
-              to="/sobre"
-              className="
-                flex
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/users-alt.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
-              >
-                Quem Somos
-              </span>
-            </Link>
-          </li>
-
-
-          {/* SOBRE */}
-          <li>
-            <Link 
+            <li>
+              <Link
                 to="/sobre"
-              className="
-                flex
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/circle-i.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
+                onClick={() => setMenuAberto(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
-                Sobre
-              </span>
-            </Link>
-          </li>
+                <img
+                  src="/src/assets/icons/users-alt.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>Quem Somos</span>
+              </Link>
+            </li>
 
-
-          {/* FAQ */}
-          <li>
-            <Link
-              to="/faq"
-              className="
-                flex
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/search.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
+            <li>
+              <Link
+                to="/sobre"
+                onClick={() => setMenuAberto(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
-                FAQ
-              </span>
-            </Link>
-          </li>
+                <img
+                  src="/src/assets/icons/circle-i.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>Sobre</span>
+              </Link>
+            </li>
 
-
-          {/* CONTATO */}
-          <li>
-            <Link
-              to="/contato"
-              className="
-                flex
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/phone-flip.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
+            <li>
+              <Link
+                to="/faq"
+                onClick={() => setMenuAberto(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
-                Contato
-              </span>
-            </Link>
-          </li>
+                <img
+                  src="/src/assets/icons/search.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>FAQ</span>
+              </Link>
+            </li>
 
-        </ul>
-
-      </nav>
-
-
-      {/* MENU INFERIOR */}
-      <div className="w-full">
-
-        <ul className="flex flex-col gap-4">
-
-          {/* CONFIGURAÇÕES */}
-          <li>
-            <button
-              className="
-                flex
-                w-full
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                text-white
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/settings.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
+            <li>
+              <Link
+                to="/contato"
+                onClick={() => setMenuAberto(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
-                Configurações
-              </span>
-            </button>
-          </li>
+                <img
+                  src="/src/assets/icons/phone-flip.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>Contato</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
-
-          {/* PERFIL */}
-          <li>
-            <button
-              className="
-                flex
-                w-full
-                items-center
-                justify-center
-                gap-3
-                px-4
-                py-2
-                text-white
-                group-hover:justify-start
-              "
-            >
-              <img
-                src="/src/assets/icons/circle-user.png"
-                alt=""
-                className="h-7 w-7 shrink-0"
-              />
-
-              <span
-                className="
-                  hidden
-                  whitespace-nowrap
-                  group-hover:block
-                "
+        <div>
+          <ul className="flex flex-col gap-3">
+            <li>
+              <button
+                type="button"
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-white hover:bg-white/10"
               >
-                Perfil
-              </span>
-            </button>
-          </li>
+                <img
+                  src="/src/assets/icons/settings.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>Configurações</span>
+              </button>
+            </li>
 
-        </ul>
+            <li>
+              <button
+                type="button"
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-white hover:bg-white/10"
+              >
+                <img
+                  src="/src/assets/icons/circle-user.png"
+                  alt=""
+                  className="h-7 w-7"
+                />
+                <span>Perfil</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </aside>
 
-      </div>
+      {/* SIDEBAR DESKTOP */}
+      <aside
+        className="
+          group
+          fixed
+          left-0
+          top-0
+          z-50
+          hidden
+          h-screen
+          w-20
+          flex-col
+          items-center
+          bg-[#2d2d2d]
+          py-6
+          text-white
+          transition-all
+          duration-300
+          hover:w-50
+          md:flex
+        "
+      >
+        <div className="mb-10 flex justify-center">
+          <img
+            src="/src/assets/images/SoulUpLogo.png"
+            alt="Logo SoulPass"
+            className="h-12 w-12 object-contain"
+          />
+        </div>
 
-    </aside>
+        <nav className="w-full flex-1">
+          <ul className="flex flex-col gap-4">
+            <li>
+              <Link
+                to="/"
+                className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/home.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  Início
+                </span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/sobre"
+                className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/users-alt.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  Quem Somos
+                </span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/sobre"
+                className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/circle-i.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  Sobre
+                </span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/faq"
+                className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/search.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  FAQ
+                </span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/contato"
+                className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/phone-flip.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  Contato
+                </span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <div className="w-full">
+          <ul className="flex flex-col gap-4">
+            <li>
+              <button
+                type="button"
+                className="flex w-full items-center justify-center gap-3 px-4 py-2 text-white group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/settings.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  Configurações
+                </span>
+              </button>
+            </li>
+
+            <li>
+              <button
+                type="button"
+                className="flex w-full items-center justify-center gap-3 px-4 py-2 text-white group-hover:justify-start"
+              >
+                <img
+                  src="/src/assets/icons/circle-user.png"
+                  alt=""
+                  className="h-7 w-7 shrink-0"
+                />
+                <span className="hidden whitespace-nowrap group-hover:block">
+                  Perfil
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </>
   )
 }
 
