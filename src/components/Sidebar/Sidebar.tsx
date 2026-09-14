@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function Sidebar() {
   const [menuAberto, setMenuAberto] = useState(false)
@@ -87,8 +88,8 @@ function Sidebar() {
         <nav className="flex-1">
           <ul className="flex flex-col gap-3">
             <li>
-              <a
-                href="/"
+              <Link
+                to="/"
                 onClick={() => setMenuAberto(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
@@ -98,12 +99,12 @@ function Sidebar() {
                   className="h-7 w-7"
                 />
                 <span>Início</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/sobre"
+              <Link
+                to="/sobre"
                 onClick={() => setMenuAberto(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
@@ -113,12 +114,12 @@ function Sidebar() {
                   className="h-7 w-7"
                 />
                 <span>Quem Somos</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/sobre"
+              <Link
+                to="/sobre"
                 onClick={() => setMenuAberto(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
@@ -128,12 +129,12 @@ function Sidebar() {
                   className="h-7 w-7"
                 />
                 <span>Sobre</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/faq"
+              <Link
+                to="/faq"
                 onClick={() => setMenuAberto(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
@@ -143,12 +144,12 @@ function Sidebar() {
                   className="h-7 w-7"
                 />
                 <span>FAQ</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/contato"
+              <Link
+                to="/contato"
                 onClick={() => setMenuAberto(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
@@ -158,7 +159,7 @@ function Sidebar() {
                   className="h-7 w-7"
                 />
                 <span>Contato</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -229,8 +230,8 @@ function Sidebar() {
         <nav className="w-full flex-1">
           <ul className="flex flex-col gap-4">
             <li>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
@@ -241,12 +242,12 @@ function Sidebar() {
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Início
                 </span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/sobre"
+              <Link
+                to="/sobre"
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
@@ -257,12 +258,12 @@ function Sidebar() {
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Quem Somos
                 </span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/sobre"
+              <Link
+                to="/sobre"
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
@@ -273,12 +274,12 @@ function Sidebar() {
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Sobre
                 </span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/faq"
+              <Link
+                to="/faq"
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
@@ -289,12 +290,12 @@ function Sidebar() {
                 <span className="hidden whitespace-nowrap group-hover:block">
                   FAQ
                 </span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="/contato"
+              <Link
+                to="/contato"
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
@@ -305,7 +306,7 @@ function Sidebar() {
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Contato
                 </span>
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
