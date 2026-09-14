@@ -36,13 +36,23 @@ function PerguntaFAQ({
             transition
             duration-200
             hover:bg-[#4d4d4d]
+            md:px-6
+            md:text-lg
           "
         >
           <span className="min-w-0">{pergunta}</span>
 
           <span
             aria-hidden="true"
-            className="shrink-0 text-2xl leading-none text-[#6bdcd6]"
+            className={`
+              shrink-0
+              text-2xl
+              leading-none
+              text-[#6bdcd6]
+              transition-transform
+              duration-300
+              ${aberta ? 'rotate-45' : 'rotate-0'}
+            `}
           >
             +
           </span>
@@ -60,6 +70,8 @@ function PerguntaFAQ({
             text-sm
             leading-relaxed
             text-white/90
+            md:px-6
+            md:text-base
           "
         >
           {resposta}
