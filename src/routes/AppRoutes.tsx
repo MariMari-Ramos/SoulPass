@@ -9,6 +9,8 @@ import Cadastro from '../pages/Solucao/Cadastro'
 import Feed from '../pages/Solucao/Feed'
 import Perfil from '../pages/Solucao/Perfil'
 
+import Faq from '../pages/FAQ/Faq'
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -28,7 +30,7 @@ function AppRoutes() {
 
           <Route
             path="/faq"
-            element={<h1>FAQ</h1>}
+            element={<Faq />}
           />
 
           <Route
