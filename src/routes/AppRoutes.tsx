@@ -11,6 +11,8 @@ import Login from '../pages/Solucao/Login'
 import Cadastro from '../pages/Solucao/Cadastro'
 import Feed from '../pages/Solucao/Feed'
 import Perfil from '../pages/Solucao/Perfil'
+import Contato from '../pages/Contato/Contato'
+import Faq from '../pages/FAQ/Faq'
 
 function AppRoutes() {
   return (
@@ -31,12 +33,12 @@ function AppRoutes() {
 
           <Route
             path="/faq"
-            element={<h1>FAQ</h1>}
+            element={<Faq />}
           />
 
-          <Route
+                    <Route
             path="/contato"
-            element={<h1>Contato</h1>}
+            element={<Contato />}
           />
 
           <Route
