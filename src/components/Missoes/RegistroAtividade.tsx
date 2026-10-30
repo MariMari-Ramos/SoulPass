@@ -1,3 +1,4 @@
+import HistoricoMissao from './HistoricoMissao';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { AcaoRealizada, MetodoValidacao, Missao, Usuario } from '../../types/api';
@@ -57,7 +58,9 @@ export default function RegistroAtividade({ missao }: { missao: Missao }) {
         <button className={botaoMissao} disabled={registro.formState.isSubmitting || selecao.formState.isSubmitting}>{registro.formState.isSubmitting ? 'Registrando…' : 'Registrar atividade'}</button>
       </form>}
     </>}
+    {acao && <button type="button" className={botaoMissao} onClick={() => setAcao(null)}>Registrar outra atividade</button>}
     {acao && <div role="status" className="space-y-2"><p>Atividade #{acao.idAcao}: {acao.statusAprovacao}</p><p>Código de validação: <strong className="break-all">{acao.codigoValidacao}</strong></p></div>}
+    {usuario && <HistoricoMissao key={usuario.idUsuario} idUsuario={usuario.idUsuario} idMissao={missao.idMissao} novaAcao={acao} />}
     {erro && <p role="alert" className="text-red-300">{erro}</p>}
   </section>;
 }
