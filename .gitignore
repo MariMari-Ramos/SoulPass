@@ -25,3 +25,7 @@ dist-ssr
 
 # Projeto antigo
 ../ProjetoAntigo/
+# Testes de navegador e configuração local
+/test-results/
+/playwright-report/
+.env
