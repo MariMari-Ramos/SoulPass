@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { listarMissoesAtivas } from '../../services/missaoService';
 import { useConsulta } from '../../hooks/useConsulta';
-import EstadoConsulta, { botaoMissao } from '../../components/Missoes/EstadoConsulta';
+import EstadoConsulta from '../../components/Missoes/EstadoConsulta';
+import { botaoMissao } from '../../components/Missoes/consultaUtils';
 import { categorias } from '../../components/Missoes/categorias';
 
 export default function Feed() {
   const { dados: missoes, carregando, erro, recarregar } = useConsulta(listarMissoesAtivas);
-  return <section className="mx-auto max-w-5xl px-6 py-10 text-white">
+  return <div className="min-h-[75vh] bg-[#202020]"><section className="mx-auto max-w-5xl px-8 py-10 text-white">
     <h1 className="text-3xl font-bold md:text-4xl">Missões sustentáveis</h1>
     <p className="mb-8 mt-3 text-white/80">Escolha uma missão, registre sua atividade e valide para conquistar pontos.</p>
     <EstadoConsulta carregando={carregando} erro={erro} vazio={missoes?.length === 0} tentarNovamente={recarregar} />
@@ -19,5 +20,5 @@ export default function Feed() {
         <Link className={botaoMissao} to={`/solucao/missoes/${missao.idMissao}`} aria-label={`Ver missão: ${missao.tituloMissao}`}>Ver missão</Link>
       </article>)}
     </div>
-  </section>;
+  </section></div>;
 }

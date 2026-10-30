@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import type { AcaoRealizada, MetodoValidacao, Missao, Usuario } from '../../types/api';
 import { buscarUsuarioPorId } from '../../services/usuarioService';
 import { registrarAcao } from '../../services/acaoService';
-import { botaoMissao, campoMissao, mensagemErro } from './EstadoConsulta';
+import { botaoMissao, campoMissao, mensagemErro } from './consultaUtils';
 
 export default function RegistroAtividade({ missao }: { missao: Missao }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
@@ -14,7 +14,7 @@ export default function RegistroAtividade({ missao }: { missao: Missao }) {
   const selecao = useForm<{ idUsuario: string }>();
   const registro = useForm<{ metodoValidacao: MetodoValidacao }>({ defaultValues: { metodoValidacao: 'CHECKIN' } });
 
-  const selecionar = selecao.handleSubmit(async ({ idUsuario }) => {
+  const selecionar = async ({ idUsuario }: { idUsuario: string }) => {
     if (bloqueio.current) return;
     bloqueio.current = true;
     setErro('');
@@ -25,9 +25,9 @@ export default function RegistroAtividade({ missao }: { missao: Missao }) {
       setAcao(null);
     } catch (erro) { setErro(mensagemErro(erro)); }
     finally { bloqueio.current = false; }
-  });
+  };
 
-  const registrar = registro.handleSubmit(async ({ metodoValidacao }) => {
+  const registrar = async ({ metodoValidacao }: { metodoValidacao: MetodoValidacao }) => {
     if (!usuario || bloqueio.current || !missao.ativa) return;
     bloqueio.current = true;
     setErro('');
@@ -35,12 +35,12 @@ export default function RegistroAtividade({ missao }: { missao: Missao }) {
       setAcao(await registrarAcao({ idUsuario: usuario.idUsuario, idMissao: missao.idMissao, metodoValidacao }));
     } catch (erro) { setErro(mensagemErro(erro)); }
     finally { bloqueio.current = false; }
-  });
+  };
 
   return <section className="space-y-5 rounded-2xl bg-[#2d2d2d] p-6 md:p-8" aria-labelledby="registro-titulo">
     <h2 id="registro-titulo" className="text-2xl font-bold">Registrar atividade</h2>
     <p className="text-white/80">Ambiente de demonstração: informe o ID de um usuário cadastrado na API. Esta seleção não é um login.</p>
-    <form onSubmit={selecionar} className="space-y-3">
+    <form onSubmit={event => { void selecao.handleSubmit(selecionar)(event); }} className="space-y-3">
       <label htmlFor="usuario-id" className="block font-semibold">ID do usuário</label>
       <input id="usuario-id" inputMode="numeric" className={campoMissao} aria-invalid={!!selecao.formState.errors.idUsuario} aria-describedby="usuario-erro"
         {...selecao.register('idUsuario', { required: 'Informe o ID do usuário.', validate: valor => /^\d+$/.test(valor) && Number.isSafeInteger(Number(valor)) && Number(valor) > 0 || 'Informe um ID inteiro positivo.' })} />
@@ -49,7 +49,7 @@ export default function RegistroAtividade({ missao }: { missao: Missao }) {
     </form>
     {usuario && <>
       <p role="status">Usuário selecionado: <strong>{usuario.nome}</strong> (ID {usuario.idUsuario})</p>
-      {missao.ativa && !acao && <form onSubmit={registrar} className="space-y-4">
+      {missao.ativa && !acao && <form onSubmit={event => { void registro.handleSubmit(registrar)(event); }} className="space-y-4">
         <label htmlFor="metodo" className="block font-semibold">Método de validação</label>
         <select id="metodo" className={campoMissao} {...registro.register('metodoValidacao', { required: true })}>
           <option value="CHECKIN">Check-in</option><option value="QRCODE">QR Code</option><option value="CODIGO">Código</option>
@@ -59,7 +59,7 @@ export default function RegistroAtividade({ missao }: { missao: Missao }) {
       </form>}
     </>}
     {acao && <button type="button" className={botaoMissao} onClick={() => setAcao(null)}>Registrar outra atividade</button>}
-    {acao && <div role="status" className="space-y-2"><p>Atividade #{acao.idAcao}: {acao.statusAprovacao}</p><p>Código de validação: <strong className="break-all">{acao.codigoValidacao}</strong></p></div>}
+
     {usuario && <HistoricoMissao key={usuario.idUsuario} idUsuario={usuario.idUsuario} idMissao={missao.idMissao} novaAcao={acao} />}
     {erro && <p role="alert" className="text-red-300">{erro}</p>}
   </section>;

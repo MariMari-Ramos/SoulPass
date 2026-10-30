@@ -21,7 +21,7 @@ function ConteudoMissao({ id }: { id: string }) {
     return buscarMissaoPorId(numero);
   }, [id]);
   const { dados: missao, carregando, erro, recarregar } = useConsulta(consultar);
-  return <section className="mx-auto max-w-4xl space-y-6 px-6 py-10 text-white">
+  return <div className="min-h-[75vh] bg-[#202020]"><section className="mx-auto max-w-4xl space-y-6 px-8 py-10 text-white">
     <Link className="inline-block py-2 text-[#6bdcd6] underline focus-visible:outline-2" to="/solucao/feed">Voltar às missões</Link>
     <EstadoConsulta carregando={carregando} erro={erro} tentarNovamente={recarregar} />
     {missao && <>
@@ -34,5 +34,5 @@ function ConteudoMissao({ id }: { id: string }) {
       </article>
       <RegistroAtividade missao={missao} />
     </>}
-  </section>;
+  </section></div>;
 }
