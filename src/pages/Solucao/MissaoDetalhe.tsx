@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { buscarMissaoPorId } from '../../services/missaoService';
 import { useConsulta } from '../../hooks/useConsulta';
 import EstadoConsulta from '../../components/Missoes/EstadoConsulta';
+import RegistroAtividade from '../../components/Missoes/RegistroAtividade';
 import { categorias } from '../../components/Missoes/categorias';
 
 export default function MissaoDetalhe() {
@@ -31,6 +32,7 @@ function ConteudoMissao({ id }: { id: string }) {
         <p className="font-bold">{missao.pontoBase} pontos após aprovação</p>
         {!missao.ativa && <p role="status">Esta missão não está ativa para novos registros.</p>}
       </article>
+      <RegistroAtividade missao={missao} />
     </>}
   </section>;
 }
