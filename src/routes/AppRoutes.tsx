@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import Home from '../pages/Home'
+import Sobre from '../pages/Sobre/Sobre'
+import Integrantes from '../pages/Integrantes/Integrantes'
+import IntegranteDetalhe from '../pages/Integrantes/IntegranteDetalhe'
 
 import Solucao from '../pages/Solucao/Solucao'
 import Login from '../pages/Solucao/Login'
@@ -25,7 +28,7 @@ function AppRoutes() {
 
           <Route
             path="/sobre"
-            element={<h1>Sobre</h1>}
+            element={<Sobre />}
           />
 
           <Route
@@ -40,7 +43,12 @@ function AppRoutes() {
 
           <Route
             path="/integrantes"
-            element={<h1>Integrantes</h1>}
+            element={<Integrantes />}
+          />
+
+          <Route
+            path="/integrantes/:id"
+            element={<IntegranteDetalhe />}
           />
 
           <Route 
