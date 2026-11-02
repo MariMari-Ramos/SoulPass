@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function Sidebar() {
+interface SidebarProps {
+  onAbrirPerfil: () => void
+}
+
+function Sidebar({ onAbrirPerfil }: SidebarProps) {
   const [menuAberto, setMenuAberto] = useState(false)
 
   return (
@@ -15,7 +19,7 @@ function Sidebar() {
           fixed
           left-4
           top-3
-          z-[60]
+          z-60
           flex
           h-10
           w-10
@@ -184,6 +188,7 @@ function Sidebar() {
               <button
                 type="button"
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-white hover:bg-white/10"
+                onClick={onAbrirPerfil}
               >
                 <img
                   src="/src/assets/icons/circle-user.png"
@@ -338,6 +343,7 @@ function Sidebar() {
                   src="/src/assets/icons/circle-user.png"
                   alt=""
                   className="h-7 w-7 shrink-0"
+                  onClick={onAbrirPerfil}
                 />
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Perfil
