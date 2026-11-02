@@ -10,6 +10,7 @@ import Solucao from '../pages/Solucao/Solucao'
 import Login from '../pages/Solucao/Login'
 import Cadastro from '../pages/Solucao/Cadastro'
 import Feed from '../pages/Solucao/Feed'
+import MissaoDetalhe from '../pages/Solucao/MissaoDetalhe'
 import Perfil from '../pages/Solucao/Perfil'
 import Contato from '../pages/Contato/Contato'
 import Faq from '../pages/FAQ/Faq'
@@ -67,6 +68,7 @@ function AppRoutes() {
             path="/solucao/feed"
             element={<Feed />} 
           />
+          <Route path="/solucao/missoes/:id" element={<MissaoDetalhe />} />
           <Route 
             path="/solucao/perfil" 
             element={<Perfil />} 
