@@ -4,7 +4,7 @@ import type { Usuario, AcaoRealizada } from "../../types/api";
 import { buscarUsuarioPorId } from "../../services/usuarioService";
 import { listarAcoesPorUsuario } from "../../services/acaoService";
 import CatalogoVouchers from "./CatalogoVouchers";
-
+import MeusResgates from "./MeusResgates";
 
 interface PerfilProps {
   onFechar: () => void;
@@ -52,6 +52,7 @@ function Perfil({ onFechar }: PerfilProps) {
   const secoes = [
     { id: "perfil", nome: "Meu perfil" },
     { id: "recompensas", nome: "Recompensas" },
+    { id: "resgates", nome: "Resgates" },
   ] as const;
 
   return (
@@ -220,17 +221,26 @@ function Perfil({ onFechar }: PerfilProps) {
           )}
 
           {secaoAtiva === "recompensas" && (
-  <CatalogoVouchers
-    idUsuario={idUsuario}
-    saldoPontos={usuario?.saldoPontos ?? 0}
-    onResgateConcluido={() => {
-      buscarUsuarioPorId(idUsuario)
-        .then(setUsuario)
-        .catch(console.error);
-    }}
-  />
-)}
+            <CatalogoVouchers
+              idUsuario={idUsuario}
+              saldoPontos={usuario?.saldoPontos ?? 0}
+              onResgateConcluido={() => {
+                buscarUsuarioPorId(idUsuario)
+                  .then(setUsuario)
+                  .catch(console.error);
+              }}
+            />
+          )}
 
+          {secaoAtiva === "resgates" && (
+            <MeusResgates
+              idUsuario={idUsuario}
+              onResgateCancelado={async () => {
+                const dadosUsuario = await buscarUsuarioPorId(idUsuario);
+                setUsuario(dadosUsuario);
+              }}
+            />
+          )}
         </div>
       </section>
     </div>

@@ -20,3 +20,11 @@ export async function listarResgatesPorUsuario(
     `/resgates/usuario/${idUsuario}`
   );
 }
+
+export async function cancelarResgate(
+  idResgate: number
+): Promise<void> {
+  return requisicaoApi<void>(`/resgates/${idResgate}`, {
+    method: "DELETE",
+  });
+}
