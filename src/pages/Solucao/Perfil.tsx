@@ -5,7 +5,7 @@ import { buscarUsuarioPorId } from "../../services/usuarioService";
 import { listarAcoesPorUsuario } from "../../services/acaoService";
 import CatalogoVouchers from "./CatalogoVouchers";
 import MeusResgates from "./MeusResgates";
-
+import { useAuth } from "../../contexts/AuthContext";
 interface PerfilProps {
   onFechar: () => void;
 }
@@ -18,12 +18,16 @@ function Perfil({ onFechar }: PerfilProps) {
   const [acoes, setAcoes] = useState<AcaoRealizada[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState("");
-
-  // ID temporário para os testes da API
-  const idUsuario = 2;
+  const { usuario: usuarioAutenticado } = useAuth();
+  const idUsuario = usuarioAutenticado?.idUsuario;
 
   useEffect(() => {
     async function carregarPerfil() {
+      if (!idUsuario) {
+        setCarregando(false);
+        return;
+      }
+
       try {
         setCarregando(true);
         setErro("");
@@ -47,7 +51,7 @@ function Perfil({ onFechar }: PerfilProps) {
     }
 
     carregarPerfil();
-  }, []);
+  }, [idUsuario]);
 
   const secoes = [
     { id: "perfil", nome: "Meu perfil" },
@@ -64,14 +68,6 @@ function Perfil({ onFechar }: PerfilProps) {
         className="flex max-h-[90dvh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-[#2d2d2d] text-white shadow-xl"
         onClick={(evento) => evento.stopPropagation()}
       >
-        <button
-          type="button"
-          onClick={onFechar}
-          aria-label="Fechar perfil"
-          className="absolute right-4 top-3 text-2xl text-white hover:text-[#6bdcd6]"
-        >
-          ×
-        </button>
 
         <header className="flex items-center justify-between border-b border-white/10 px-4 py-4 sm:px-6">
           <h1 className="pr-3 text-xl font-bold sm:text-2xl">Minha conta</h1>
@@ -220,7 +216,7 @@ function Perfil({ onFechar }: PerfilProps) {
             </>
           )}
 
-          {secaoAtiva === "recompensas" && (
+          {secaoAtiva === "recompensas" && idUsuario &&(
             <CatalogoVouchers
               idUsuario={idUsuario}
               saldoPontos={usuario?.saldoPontos ?? 0}
@@ -232,7 +228,7 @@ function Perfil({ onFechar }: PerfilProps) {
             />
           )}
 
-          {secaoAtiva === "resgates" && (
+          {secaoAtiva === "resgates" && idUsuario &&(
             <MeusResgates
               idUsuario={idUsuario}
               onResgateCancelado={async () => {
