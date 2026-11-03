@@ -170,19 +170,6 @@ function Sidebar({ onAbrirPerfil }: SidebarProps) {
 
         <div>
           <ul className="flex flex-col gap-3">
-            <li>
-              <button
-                type="button"
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-white hover:bg-white/10"
-              >
-                <img
-                  src="/src/assets/icons/settings.png"
-                  alt=""
-                  className="h-7 w-7"
-                />
-                <span>Configurações</span>
-              </button>
-            </li>
 
             <li>
               <button
@@ -322,28 +309,13 @@ function Sidebar({ onAbrirPerfil }: SidebarProps) {
               <button
                 type="button"
                 className="flex w-full items-center justify-center gap-3 px-4 py-2 text-white group-hover:justify-start"
-              >
-                <img
-                  src="/src/assets/icons/settings.png"
-                  alt=""
-                  className="h-7 w-7 shrink-0"
-                />
-                <span className="hidden whitespace-nowrap group-hover:block">
-                  Configurações
-                </span>
-              </button>
-            </li>
-
-            <li>
-              <button
-                type="button"
-                className="flex w-full items-center justify-center gap-3 px-4 py-2 text-white group-hover:justify-start"
+                onClick={onAbrirPerfil}
               >
                 <img
                   src="/src/assets/icons/circle-user.png"
                   alt=""
                   className="h-7 w-7 shrink-0"
-                  onClick={onAbrirPerfil}
+                  
                 />
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Perfil
