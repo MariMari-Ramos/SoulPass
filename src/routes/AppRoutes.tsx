@@ -14,6 +14,7 @@ import MissaoDetalhe from "../pages/Solucao/MissaoDetalhe";
 import Contato from "../pages/Contato/Contato";
 import Faq from "../pages/FAQ/Faq";
 import CatalogoVouchers from "../pages/Solucao/CatalogoVouchers";
+import NaoEncontrada from "../pages/NaoEncontrada/NaoEncontrada";
 
 function AppRoutes() {
   return (
@@ -47,6 +48,8 @@ function AppRoutes() {
               />
             }
           />
+
+          <Route path="*" element={<NaoEncontrada />} />
         </Route>
       </Routes>
     </BrowserRouter>
