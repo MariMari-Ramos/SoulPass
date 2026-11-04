@@ -40,14 +40,31 @@ async function simular(page: Page) {
   });
   return { acoes, posts: () => posts, puts: () => puts };
 }
+
 async function abrir(page: Page) {
+  await page.addInitScript(() => {
+    localStorage.setItem('idUsuario', '7');
+  });
+
   await page.goto('/solucao/feed');
-  await page.getByRole('link', { name: `Ver missão: ${missao.tituloMissao}` }).click();
+
+  await page
+    .getByRole('link', {
+      name: `Ver missão: ${missao.tituloMissao}`,
+    })
+    .click();
+
   await expect(page).toHaveURL(/\/solucao\/missoes\/2$/);
-  await page.getByLabel('ID do usuário').fill('7');
-  await page.getByRole('button', { name: 'Selecionar usuário' }).click();
-  await expect(page.getByText('Saldo confirmado:')).toContainText('0 pontos');
+
+  await expect(
+    page.getByText('Usuário conectado:')
+  ).toContainText(usuario.nome);
+
+  await expect(
+    page.getByText('Saldo confirmado:')
+  ).toContainText('0 pontos');
 }
+
 
 test('navega, registra todos os métodos e credita somente após aprovação', async ({ page }) => {
   const api = await simular(page);
@@ -122,8 +139,6 @@ test('recupera atividades após recarregar e trata erro de rede na aprovação',
   await page.getByRole('button', { name: 'Registrar atividade', exact: true }).click();
   await expect(page.getByText('Status: PENDENTE')).toBeVisible();
   await page.reload();
-  await page.getByLabel('ID do usuário').fill('7');
-  await page.getByRole('button', { name: 'Selecionar usuário' }).click();
   await expect(page.getByText('Status: PENDENTE')).toBeVisible();
   await page.route(`${base}/acoes/1/aprovar`, async route => {
     api.acoes[0].statusAprovacao = 'APROVADO'; api.acoes[0].pontosConquistados = 50;
@@ -140,8 +155,7 @@ test('preserva erro de aprovação mesmo após atualizar histórico recuperado',
   await page.getByRole('button', { name: 'Registrar atividade', exact: true }).click();
   await expect(page.getByText('Status: PENDENTE')).toBeVisible();
   await page.reload();
-  await page.getByLabel('ID do usuário').fill('7');
-  await page.getByRole('button', { name: 'Selecionar usuário' }).click();
+  await expect(page.getByText('Status: PENDENTE')).toBeVisible();
   await page.route(`${base}/acoes/1/aprovar`, route => route.fulfill({ status: 400, json: { mensagem: 'Validação indisponível agora.' } }));
   await page.getByLabel('Digite o código para validar').fill('CODIGO-2-123456');
   await page.getByRole('button', { name: 'Validar atividade' }).click();

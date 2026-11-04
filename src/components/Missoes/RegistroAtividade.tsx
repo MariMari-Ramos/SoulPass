@@ -1,66 +1,169 @@
-import HistoricoMissao from './HistoricoMissao';
-import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import type { AcaoRealizada, MetodoValidacao, Missao, Usuario } from '../../types/api';
-import { buscarUsuarioPorId } from '../../services/usuarioService';
-import { registrarAcao } from '../../services/acaoService';
-import { botaoMissao, campoMissao, mensagemErro } from './consultaUtils';
 
-export default function RegistroAtividade({ missao }: { missao: Missao }) {
-  const [usuario, setUsuario] = useState<Usuario | null>(null);
+import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import HistoricoMissao from './HistoricoMissao';
+import type {
+  AcaoRealizada,
+  MetodoValidacao,
+  Missao,
+} from '../../types/api';
+import { useAuth } from '../../contexts/AuthContext';
+import { registrarAcao } from '../../services/acaoService';
+import {
+  botaoMissao,
+  campoMissao,
+  mensagemErro,
+} from './consultaUtils';
+
+export default function RegistroAtividade({
+  missao,
+}: {
+  missao: Missao;
+}) {
+  const { usuario, carregando } = useAuth();
   const [acao, setAcao] = useState<AcaoRealizada | null>(null);
   const [erro, setErro] = useState('');
   const bloqueio = useRef(false);
-  const selecao = useForm<{ idUsuario: string }>();
-  const registro = useForm<{ metodoValidacao: MetodoValidacao }>({ defaultValues: { metodoValidacao: 'CHECKIN' } });
 
-  const selecionar = async ({ idUsuario }: { idUsuario: string }) => {
-    if (bloqueio.current) return;
+  const registro = useForm<{
+    metodoValidacao: MetodoValidacao;
+  }>({
+    defaultValues: { metodoValidacao: 'CHECKIN' },
+  });
+
+  const acaoAtual =
+    acao?.idUsuario === usuario?.idUsuario &&
+    acao?.idMissao === missao.idMissao
+      ? acao
+      : null;
+
+  async function registrar({
+    metodoValidacao,
+  }: {
+    metodoValidacao: MetodoValidacao;
+  }) {
+    if (
+      !usuario ||
+      !usuario.ativo ||
+      bloqueio.current ||
+      !missao.ativa
+    ) {
+      return;
+    }
+
     bloqueio.current = true;
     setErro('');
+
     try {
-      const encontrado = await buscarUsuarioPorId(Number(idUsuario));
-      if (!encontrado.ativo) throw new Error('Este usuário está inativo.');
-      setUsuario(encontrado);
-      setAcao(null);
-    } catch (erro) { setErro(mensagemErro(erro)); }
-    finally { bloqueio.current = false; }
-  };
+      const novaAcao = await registrarAcao({
+        idUsuario: usuario.idUsuario,
+        idMissao: missao.idMissao,
+        metodoValidacao,
+      });
 
-  const registrar = async ({ metodoValidacao }: { metodoValidacao: MetodoValidacao }) => {
-    if (!usuario || bloqueio.current || !missao.ativa) return;
-    bloqueio.current = true;
-    setErro('');
-    try {
-      setAcao(await registrarAcao({ idUsuario: usuario.idUsuario, idMissao: missao.idMissao, metodoValidacao }));
-    } catch (erro) { setErro(mensagemErro(erro)); }
-    finally { bloqueio.current = false; }
-  };
+      setAcao(novaAcao);
+    } catch (erro) {
+      setErro(mensagemErro(erro));
+    } finally {
+      bloqueio.current = false;
+    }
+  }
 
-  return <section className="space-y-5 rounded-2xl bg-[#2d2d2d] p-6 md:p-8" aria-labelledby="registro-titulo">
-    <h2 id="registro-titulo" className="text-2xl font-bold">Registrar atividade</h2>
-    <p className="text-white/80">Ambiente de demonstração: informe o ID de um usuário cadastrado na API. Esta seleção não é um login.</p>
-    <form onSubmit={event => { void selecao.handleSubmit(selecionar)(event); }} className="space-y-3">
-      <label htmlFor="usuario-id" className="block font-semibold">ID do usuário</label>
-      <input id="usuario-id" inputMode="numeric" className={campoMissao} aria-invalid={!!selecao.formState.errors.idUsuario} aria-describedby="usuario-erro"
-        {...selecao.register('idUsuario', { required: 'Informe o ID do usuário.', validate: valor => /^\d+$/.test(valor) && Number.isSafeInteger(Number(valor)) && Number(valor) > 0 || 'Informe um ID inteiro positivo.' })} />
-      <p id="usuario-erro" className="text-red-300">{selecao.formState.errors.idUsuario?.message}</p>
-      <button className={botaoMissao} disabled={selecao.formState.isSubmitting || registro.formState.isSubmitting}>{selecao.formState.isSubmitting ? 'Buscando usuário…' : 'Selecionar usuário'}</button>
-    </form>
-    {usuario && <>
-      <p role="status">Usuário selecionado: <strong>{usuario.nome}</strong> (ID {usuario.idUsuario})</p>
-      {missao.ativa && !acao && <form onSubmit={event => { void registro.handleSubmit(registrar)(event); }} className="space-y-4">
-        <label htmlFor="metodo" className="block font-semibold">Método de validação</label>
-        <select id="metodo" className={campoMissao} {...registro.register('metodoValidacao', { required: true })}>
-          <option value="CHECKIN">Check-in</option><option value="QRCODE">QR Code</option><option value="CODIGO">Código</option>
-        </select>
-        <p className="text-sm text-white/80">O código será exibido como texto. Os pontos só serão concedidos após a aprovação pela API.</p>
-        <button className={botaoMissao} disabled={registro.formState.isSubmitting || selecao.formState.isSubmitting}>{registro.formState.isSubmitting ? 'Registrando…' : 'Registrar atividade'}</button>
-      </form>}
-    </>}
-    {acao && <button type="button" className={botaoMissao} onClick={() => setAcao(null)}>Registrar outra atividade</button>}
+  return (
+    <section
+      className="space-y-5 rounded-2xl bg-[#2d2d2d] p-6 md:p-8"
+      aria-labelledby="registro-titulo"
+    >
+      <h2 id="registro-titulo" className="text-2xl font-bold">
+        Registrar atividade
+      </h2>
 
-    {usuario && <HistoricoMissao key={usuario.idUsuario} idUsuario={usuario.idUsuario} idMissao={missao.idMissao} novaAcao={acao} />}
-    {erro && <p role="alert" className="text-red-300">{erro}</p>}
-  </section>;
+      {carregando ? (
+        <p role="status">Verificando sua sessão...</p>
+      ) : !usuario ? (
+        <div className="space-y-3">
+          <p className="text-white/80">
+            Entre na sua conta para registrar atividades
+            e conquistar pontos.
+          </p>
+          <Link className={botaoMissao} to="/solucao/login">
+            Fazer login
+          </Link>
+        </div>
+      ) : !usuario.ativo ? (
+        <p role="alert" className="text-red-300">
+          Sua conta está inativa e não pode registrar atividades.
+        </p>
+      ) : (
+        <>
+          <p role="status" className="text-white/80">
+            Usuário conectado: <strong>{usuario.nome}</strong>
+          </p>
+
+          {missao.ativa && !acaoAtual && (
+            <form
+              onSubmit={(evento) => {
+                void registro.handleSubmit(registrar)(evento);
+              }}
+              className="space-y-4"
+            >
+              <label htmlFor="metodo" className="block font-semibold">
+                Método de validação
+              </label>
+
+              <select
+                id="metodo"
+                className={campoMissao}
+                {...registro.register('metodoValidacao', {
+                  required: true,
+                })}
+              >
+                <option value="CHECKIN">Check-in</option>
+                <option value="QRCODE">QR Code</option>
+                <option value="CODIGO">Código</option>
+              </select>
+
+              <p className="text-sm text-white/80">
+                Os pontos serão concedidos somente após
+                a aprovação da atividade pela API.
+              </p>
+
+              <button
+                className={botaoMissao}
+                disabled={registro.formState.isSubmitting}
+              >
+                {registro.formState.isSubmitting
+                  ? 'Registrando…'
+                  : 'Registrar atividade'}
+              </button>
+            </form>
+          )}
+
+          {acaoAtual && (
+            <button
+              type="button"
+              className={botaoMissao}
+              onClick={() => setAcao(null)}
+            >
+              Registrar outra atividade
+            </button>
+          )}
+
+          <HistoricoMissao
+            key={usuario.idUsuario}
+            idUsuario={usuario.idUsuario}
+            idMissao={missao.idMissao}
+            novaAcao={acaoAtual}
+          />
+        </>
+      )}
+
+      {erro && (
+        <p role="alert" className="text-red-300">
+          {erro}
+        </p>
+      )}
+    </section>
+  );
 }
