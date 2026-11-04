@@ -134,10 +134,20 @@ function CatalogoVouchers({ idUsuario, saldoPontos, onResgateConcluido }: Catalo
               Custo: {voucherSelecionado.custoPontos} pontos
             </p>
 
-            <p className="mt-1 text-sm text-white/70">
-              Saldo após o resgate:{" "}
-              {saldoPontos - voucherSelecionado.custoPontos} pontos
-            </p>
+
+{saldoPontos >= voucherSelecionado.custoPontos ? (
+  <p className="mt-1 text-sm text-white/70">
+    Saldo após o resgate:{" "}
+    {saldoPontos - voucherSelecionado.custoPontos} pontos
+  </p>
+) : (
+  <p className="mt-3 text-sm font-medium text-red-300" role="alert">
+    Você precisa de mais{" "}
+    {voucherSelecionado.custoPontos - saldoPontos} pontos
+    para resgatar esta recompensa.
+  </p>
+)}
+
 
             {erroCompra && (
               <p className="mt-3 text-sm text-red-300" role="alert">
