@@ -1,32 +1,56 @@
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface CadastroForm {
-  nome: string
-  email: string
-  senha: string
-  confirmarSenha: string
+  nome: string;
+  email: string;
+  senha: string;
+  confirmarSenha: string;
 }
 
 function Cadastro() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { cadastro } = useAuth();
+  const [erroApi, setErroApi] = useState("");
+  const [enviando, setEnviando] = useState(false);
 
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<CadastroForm>()
+  } = useForm<CadastroForm>();
 
-  const onSubmit = (data: CadastroForm) => {
-    console.log(data)
-    navigate('/solucao/feed')
-  }
+  const onSubmit = async (data: CadastroForm) => {
+    setErroApi("");
+    setEnviando(true);
+
+    try {
+      const dadosCadastro = {
+        nome: data.nome,
+        email: data.email,
+        senha: data.senha,
+      };
+
+      await cadastro(dadosCadastro);
+
+      navigate("/solucao/feed");
+    } catch (erro) {
+      if (erro instanceof Error) {
+        setErroApi(erro.message);
+      } else {
+        setErroApi("Ocorreu um erro ao realizar o cadastro.");
+      }
+    } finally {
+      setEnviando(false);
+    }
+  };
 
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-6 py-10">
       <div className="w-full max-w-md rounded-2xl bg-[#2d2d2d] p-8 shadow-xl">
-
         <h1 className="mb-3 text-center text-3xl font-bold text-white">
           Criar minha conta
         </h1>
@@ -36,7 +60,11 @@ function Cadastro() {
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-
+          {erroApi && (
+            <p className="rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-300">
+              {erroApi}
+            </p>
+          )}
           <div>
             <label
               htmlFor="nome"
@@ -49,16 +77,14 @@ function Cadastro() {
               id="nome"
               type="text"
               placeholder="Digite seu nome"
-              {...register('nome', {
-                required: 'O nome é obrigatório',
+              {...register("nome", {
+                required: "O nome é obrigatório",
               })}
               className="w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-[#2d2d2d] outline-none focus:ring-2 focus:ring-[#6bdcd6]"
             />
 
             {errors.nome && (
-              <p className="mt-2 text-sm text-red-300">
-                {errors.nome.message}
-              </p>
+              <p className="mt-2 text-sm text-red-300">{errors.nome.message}</p>
             )}
           </div>
 
@@ -74,11 +100,11 @@ function Cadastro() {
               id="email"
               type="email"
               placeholder="Digite seu e-mail"
-              {...register('email', {
-                required: 'O e-mail é obrigatório',
+              {...register("email", {
+                required: "O e-mail é obrigatório",
                 pattern: {
                   value: /^\S+@\S+$/i,
-                  message: 'Digite um e-mail válido',
+                  message: "Digite um e-mail válido",
                 },
               })}
               className="w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-[#2d2d2d] outline-none focus:ring-2 focus:ring-[#6bdcd6]"
@@ -103,11 +129,11 @@ function Cadastro() {
               id="senha"
               type="password"
               placeholder="Digite sua senha"
-              {...register('senha', {
-                required: 'A senha é obrigatória',
+              {...register("senha", {
+                required: "A senha é obrigatória",
                 minLength: {
                   value: 6,
-                  message: 'A senha deve ter pelo menos 6 caracteres',
+                  message: "A senha deve ter pelo menos 6 caracteres",
                 },
               })}
               className="w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-[#2d2d2d] outline-none focus:ring-2 focus:ring-[#6bdcd6]"
@@ -132,11 +158,10 @@ function Cadastro() {
               id="confirmarSenha"
               type="password"
               placeholder="Digite sua senha novamente"
-              {...register('confirmarSenha', {
-                required: 'Confirme sua senha',
+              {...register("confirmarSenha", {
+                required: "Confirme sua senha",
                 validate: (value) =>
-                  value === getValues('senha') ||
-                  'As senhas não coincidem',
+                  value === getValues("senha") || "As senhas não coincidem",
               })}
               className="w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-[#2d2d2d] outline-none focus:ring-2 focus:ring-[#6bdcd6]"
             />
@@ -150,29 +175,27 @@ function Cadastro() {
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-white px-6 py-3 font-bold text-[#1193a0] transition duration-200 hover:bg-[#6bdcd6]"
+            disabled={enviando}
+            className="w-full rounded-xl bg-white px-6 py-3 font-bold text-[#1193a0] transition duration-200 hover:bg-[#6bdcd6] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Criar conta
+            {enviando ? "Criando conta..." : "Criar conta"}
           </button>
 
           <div className="pt-2 text-center">
-            <p className="text-sm text-white/80">
-              Já possui uma conta?
-            </p>
+            <p className="text-sm text-white/80">Já possui uma conta?</p>
 
             <button
               type="button"
-              onClick={() => navigate('/solucao/login')}
+              onClick={() => navigate("/solucao/login")}
               className="mt-2 font-bold text-[#6bdcd6] hover:underline"
             >
               Entrar
             </button>
           </div>
-
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Cadastro
+export default Cadastro;

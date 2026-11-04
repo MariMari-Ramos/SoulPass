@@ -1,6 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Header() {
+  const { usuario, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/solucao/login");
+  }
+
   return (
     <header
       className="
@@ -18,48 +27,80 @@ function Header() {
       "
     >
       <div className="flex items-center gap-2 md:gap-4">
-        <Link
-          to="/solucao/login"
-          className="
-            rounded-lg
-            bg-white
-            px-3
-            py-2
-            text-sm
-            font-semibold
-            text-[#1193a0]
-            transition
-            duration-200
-            hover:bg-[#6bdcd6]
-            md:px-5
-            md:text-base
-          "
-        >
-          Entrar
-        </Link>
+        {usuario ? (
+          <>
+            <span className="text-sm font-semibold text-white md:text-base">
+              Olá, {usuario.nome}
+            </span>
 
-        <Link
-          to="/solucao/cadastro"
-          className="
-            rounded-lg
-            bg-[#1193a0]
-            px-3
-            py-2
-            text-sm
-            font-semibold
-            text-white
-            transition
-            duration-200
-            hover:bg-[#2db7ba]
-            md:px-5
-            md:text-base
-          "
-        >
-          Criar conta
-        </Link>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="
+          rounded-lg
+          bg-white
+          px-3
+          py-2
+          text-sm
+          font-semibold
+          text-[#1193a0]
+          transition
+          duration-200
+          hover:bg-[#6bdcd6]
+          md:px-5
+          md:text-base
+        "
+            >
+              Sair
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/solucao/login"
+              className="
+          rounded-lg
+          bg-white
+          px-3
+          py-2
+          text-sm
+          font-semibold
+          text-[#1193a0]
+          transition
+          duration-200
+          hover:bg-[#6bdcd6]
+          md:px-5
+          md:text-base
+        "
+            >
+              Entrar
+            </Link>
+
+            <Link
+              to="/solucao/cadastro"
+              className="
+          rounded-lg
+          bg-[#1193a0]
+          px-3
+          py-2
+          text-sm
+          font-semibold
+          text-white
+          transition
+          duration-200
+          hover:bg-[#2db7ba]
+          md:px-5
+          md:text-base
+        "
+            >
+              Criar conta
+            </Link>
+          </>
+        )}
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
+

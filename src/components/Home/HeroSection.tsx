@@ -28,12 +28,21 @@ function HeroSection() {
             construir cidades mais inteligentes e acessíveis.
           </p>
 
-          <Link
-            to="/sobre"
-            className="inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-medium text-[#1193a0] transition hover:opacity-90 sm:px-6 sm:text-base"
-          >
-            Saiba Mais
-          </Link>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              to="/sobre"
+              className="inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-medium text-[#1193a0] transition hover:opacity-90 sm:px-6 sm:text-base"
+            >
+              Saiba Mais
+            </Link>
+
+            <Link
+              to="/solucao"
+              className="inline-flex rounded-2xl bg-[#2d2d2d] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#4d4d4d] sm:px-6 sm:text-base"
+            >
+              Como funciona
+            </Link>
+          </div>
         </div>
       </div>
 

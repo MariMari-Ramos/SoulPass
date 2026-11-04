@@ -65,11 +65,11 @@ function Faq() {
     <div className="px-6 py-10 md:px-10 lg:px-16">
 
       <section className="mx-auto max-w-5xl text-center">
-        <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-4xl">
           Perguntas Frequentes
         </h1>
 
-        <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/90 md:text-lg">
+        <p className="mx-auto max-w-3xl text-base leading-relaxed text-black/80 md:text-lg">
           Tire suas dúvidas sobre o funcionamento do SoulPass.
         </p>
       </section>
@@ -90,11 +90,11 @@ function Faq() {
       </section>
 
       <section className="mx-auto mt-12 max-w-3xl pb-10 text-center">
-        <h2 className="mb-3 text-xl font-bold text-white md:text-2xl">
+        <h2 className="mb-3 text-xl font-bold text-black md:text-2xl">
           Não encontrou o que procurava?
         </h2>
 
-        <p className="mb-6 text-base text-white/90">
+        <p className="mb-6 text-base text-black/80">
           Envie sua dúvida para a nossa equipe e respondemos por e-mail.
         </p>
 
@@ -103,14 +103,14 @@ function Faq() {
           onClick={() => navigate('/contato')}
           className="
             rounded-xl
-            bg-white
+            bg-[#1193a0]
             px-6
             py-3
             font-bold
-            text-[#1193a0]
+            text-white
             transition
             duration-200
-            hover:bg-[#6bdcd6]
+            hover:bg-[#2db7ba]
           "
         >
           Falar com a equipe

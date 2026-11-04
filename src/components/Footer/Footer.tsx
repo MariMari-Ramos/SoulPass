@@ -1,10 +1,14 @@
+import { Link } from 'react-router-dom'
+
 function Footer() {
   return (
     <footer className="
       bg-[#4d4d4d]
       text-white
-      px-8
+      px-6
       py-8
+      md:px-10
+      lg:px-16
     ">
 
       <div className="
@@ -32,27 +36,33 @@ function Footer() {
 
           <ul className="flex flex-col gap-2">
             <li>
-              <a href="/" className="hover:underline">
+              <Link to="/" className="hover:underline">
                 Início
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="/sobre" className="hover:underline">
+              <Link to="/sobre" className="hover:underline">
                 Sobre
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="/faq" className="hover:underline">
+              <Link to="/integrantes" className="hover:underline">
+                Integrantes
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/faq" className="hover:underline">
                 FAQ
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="/contato" className="hover:underline">
+              <Link to="/contato" className="hover:underline">
                 Contato
-              </a>
+              </Link>
             </li>
           </ul>
         </section>

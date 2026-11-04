@@ -1,82 +1,24 @@
-import Atividade from "../../components/Atividade/Atividade";
-import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import { listarMissoesAtivas } from '../../services/missaoService';
+import { useConsulta } from '../../hooks/useConsulta';
+import EstadoConsulta from '../../components/Missoes/EstadoConsulta';
+import { botaoMissao } from '../../components/Missoes/consultaUtils';
+import { categorias } from '../../components/Missoes/categorias';
 
-const atividades = [
-  {
-    id: 1,
-    titulo: "Transporte público",
-    descricao: "Viagem registrada utilizando transporte público.",
-    pontos: 100,
-  },
-  {
-    id: 2,
-    titulo: "Bicicleta compartilhada",
-    descricao: "Viagem registrada utilizando uma bicicleta compartilhada.",
-    pontos: 150,
-  },
-  {
-    id: 3,
-    titulo: "Ação sustentável",
-    descricao: "Atividade sustentável registrada na plataforma.",
-    pontos: 200,
-  },
-];
-
-function Feed() {
-  const [pontos, setPontos] = useState(1000);
-  const [carregando, setCarregando] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setCarregando(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-  return (
-    <div className="px-6 py-10 md:px-10 lg:px-16">
-      <section className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-bold text-white md:text-4xl">Meu Feed</h1>
-
-        <p className="mt-3 text-base text-white/80 md:text-lg">
-          Acompanhe suas atividades e seus pontos no SoulPass.
-        </p>
-      </section>
-
-      <section className="mx-auto mt-8 max-w-5xl">
-        <div className="rounded-2xl bg-[#2d2d2d] p-6">
-          <p className="text-sm text-white/70">Seu saldo</p>
-
-          <p className="mt-2 text-3xl font-bold text-[#6bdcd6]">
-            {pontos} pontos
-          </p>
-        </div>
-      </section>
-
-      {carregando ? (
-        <p className="mt-10 text-center text-white">Carregando atividades...</p>
-      ) : (
-        <section className="mx-auto mt-10 max-w-5xl">
-          <h2 className="mb-6 text-2xl font-bold text-[#6bdcd6]">
-            Suas atividades
-          </h2>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {atividades.map((atividade) => (
-              <Atividade
-                key={atividade.id}
-                titulo={atividade.titulo}
-                descricao={atividade.descricao}
-                pontos={atividade.pontos}
-                onRegistrar={() =>
-                  setPontos((pontosAtuais) => pontosAtuais + atividade.pontos)
-                }
-              />
-            ))}
-          </div>
-        </section>
-      )}
+export default function Feed() {
+  const { dados: missoes, carregando, erro, recarregar } = useConsulta(listarMissoesAtivas);
+  return <div className="min-h-[75vh] bg-[#202020]"><section className="mx-auto max-w-5xl px-8 py-10 text-white">
+    <h1 className="text-3xl font-bold md:text-4xl">Missões sustentáveis</h1>
+    <p className="mb-8 mt-3 text-white/80">Escolha uma missão, registre sua atividade e valide para conquistar pontos.</p>
+    <EstadoConsulta carregando={carregando} erro={erro} vazio={missoes?.length === 0} tentarNovamente={recarregar} />
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {missoes?.map(missao => <article key={missao.idMissao} className="flex min-w-0 flex-col rounded-2xl bg-[#2d2d2d] p-6">
+        <p className="text-sm text-[#6bdcd6]">{categorias[missao.tipoMissao] ?? missao.tipoMissao}</p>
+        <h2 className="mt-3 break-words text-xl font-bold">{missao.tituloMissao}</h2>
+        <p className="mt-3 flex-1 break-words text-white/80">{missao.descricao}</p>
+        <p className="my-5 font-semibold">{missao.pontoBase} pontos após aprovação</p>
+        <Link className={botaoMissao} to={`/solucao/missoes/${missao.idMissao}`} aria-label={`Ver missão: ${missao.tituloMissao}`}>Ver missão</Link>
+      </article>)}
     </div>
-  );
+  </section></div>;
 }
-
-export default Feed;

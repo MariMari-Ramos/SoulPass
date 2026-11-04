@@ -1,7 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import logo from '../../assets/images/SoulUpLogo.png'
+import iconeHome from '../../assets/icons/home.png'
+import iconeIntegrantes from '../../assets/icons/users-alt.png'
+import iconeSobre from '../../assets/icons/circle-i.png'
+import iconeFaq from '../../assets/icons/search.png'
+import iconeContato from '../../assets/icons/phone-flip.png'
+import iconePerfil from '../../assets/icons/circle-user.png'
 
-function Sidebar() {
+interface SidebarProps {
+  onAbrirPerfil: () => void
+}
+
+function Sidebar({ onAbrirPerfil }: SidebarProps) {
   const [menuAberto, setMenuAberto] = useState(false)
 
   return (
@@ -15,7 +26,7 @@ function Sidebar() {
           fixed
           left-4
           top-3
-          z-[60]
+          z-60
           flex
           h-10
           w-10
@@ -70,7 +81,7 @@ function Sidebar() {
       >
         <div className="mb-8 flex items-center justify-between">
           <img
-            src="/src/assets/images/SoulUpLogo.png"
+            src={logo}
             alt="Logo SoulPass"
             className="h-12 w-12 object-contain"
           />
@@ -94,7 +105,7 @@ function Sidebar() {
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
                 <img
-                  src="/src/assets/icons/home.png"
+                  src={iconeHome}
                   alt=""
                   className="h-7 w-7"
                 />
@@ -104,12 +115,12 @@ function Sidebar() {
 
             <li>
               <Link
-                to="/sobre"
+                to="/integrantes"
                 onClick={() => setMenuAberto(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
                 <img
-                  src="/src/assets/icons/users-alt.png"
+                  src={iconeIntegrantes}
                   alt=""
                   className="h-7 w-7"
                 />
@@ -124,7 +135,7 @@ function Sidebar() {
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
                 <img
-                  src="/src/assets/icons/circle-i.png"
+                  src={iconeSobre}
                   alt=""
                   className="h-7 w-7"
                 />
@@ -139,7 +150,7 @@ function Sidebar() {
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
                 <img
-                  src="/src/assets/icons/search.png"
+                  src={iconeFaq}
                   alt=""
                   className="h-7 w-7"
                 />
@@ -154,7 +165,7 @@ function Sidebar() {
                 className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-white/10"
               >
                 <img
-                  src="/src/assets/icons/phone-flip.png"
+                  src={iconeContato}
                   alt=""
                   className="h-7 w-7"
                 />
@@ -166,27 +177,15 @@ function Sidebar() {
 
         <div>
           <ul className="flex flex-col gap-3">
-            <li>
-              <button
-                type="button"
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-white hover:bg-white/10"
-              >
-                <img
-                  src="/src/assets/icons/settings.png"
-                  alt=""
-                  className="h-7 w-7"
-                />
-                <span>Configurações</span>
-              </button>
-            </li>
 
             <li>
               <button
                 type="button"
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-white hover:bg-white/10"
+                onClick={onAbrirPerfil}
               >
                 <img
-                  src="/src/assets/icons/circle-user.png"
+                  src={iconePerfil}
                   alt=""
                   className="h-7 w-7"
                 />
@@ -221,7 +220,7 @@ function Sidebar() {
       >
         <div className="mb-10 flex justify-center">
           <img
-            src="/src/assets/images/SoulUpLogo.png"
+            src={logo}
             alt="Logo SoulPass"
             className="h-12 w-12 object-contain"
           />
@@ -235,7 +234,7 @@ function Sidebar() {
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
-                  src="/src/assets/icons/home.png"
+                  src={iconeHome}
                   alt=""
                   className="h-7 w-7 shrink-0"
                 />
@@ -247,11 +246,11 @@ function Sidebar() {
 
             <li>
               <Link
-                to="/sobre"
+                to="/integrantes"
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
-                  src="/src/assets/icons/users-alt.png"
+                  src={iconeIntegrantes}
                   alt=""
                   className="h-7 w-7 shrink-0"
                 />
@@ -267,7 +266,7 @@ function Sidebar() {
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
-                  src="/src/assets/icons/circle-i.png"
+                  src={iconeSobre}
                   alt=""
                   className="h-7 w-7 shrink-0"
                 />
@@ -283,7 +282,7 @@ function Sidebar() {
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
-                  src="/src/assets/icons/search.png"
+                  src={iconeFaq}
                   alt=""
                   className="h-7 w-7 shrink-0"
                 />
@@ -299,7 +298,7 @@ function Sidebar() {
                 className="flex items-center justify-center gap-3 px-4 py-2 group-hover:justify-start"
               >
                 <img
-                  src="/src/assets/icons/phone-flip.png"
+                  src={iconeContato}
                   alt=""
                   className="h-7 w-7 shrink-0"
                 />
@@ -317,27 +316,13 @@ function Sidebar() {
               <button
                 type="button"
                 className="flex w-full items-center justify-center gap-3 px-4 py-2 text-white group-hover:justify-start"
+                onClick={onAbrirPerfil}
               >
                 <img
-                  src="/src/assets/icons/settings.png"
+                  src={iconePerfil}
                   alt=""
                   className="h-7 w-7 shrink-0"
-                />
-                <span className="hidden whitespace-nowrap group-hover:block">
-                  Configurações
-                </span>
-              </button>
-            </li>
-
-            <li>
-              <button
-                type="button"
-                className="flex w-full items-center justify-center gap-3 px-4 py-2 text-white group-hover:justify-start"
-              >
-                <img
-                  src="/src/assets/icons/circle-user.png"
-                  alt=""
-                  className="h-7 w-7 shrink-0"
+                  
                 />
                 <span className="hidden whitespace-nowrap group-hover:block">
                   Perfil
