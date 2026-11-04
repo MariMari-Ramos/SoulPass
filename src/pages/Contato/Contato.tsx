@@ -102,11 +102,11 @@ function Contato() {
     <div className="px-6 py-10 md:px-10 lg:px-16">
 
       <section className="mx-auto max-w-5xl text-center">
-        <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-4xl">
           Entre em Contato
         </h1>
 
-        <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/90 md:text-lg">
+        <p className="mx-auto max-w-3xl text-base leading-relaxed text-black/80 md:text-lg">
           Tem alguma dúvida, sugestão ou quer falar com a gente? Preencha o
           formulário abaixo.
         </p>

@@ -14,7 +14,7 @@ function Solucao() {
             mb-6
             text-3xl
             font-bold
-            text-white
+            text-black
             md:text-4xl
           "
         >
@@ -27,7 +27,7 @@ function Solucao() {
             max-w-3xl
             text-base
             leading-relaxed
-            text-white/90
+            text-black/80
             md:text-lg
           "
         >
@@ -51,7 +51,7 @@ function Solucao() {
           O Problema
         </h2>
 
-        <div className="space-y-4 text-base leading-relaxed text-white/90 md:text-lg">
+        <div className="space-y-4 text-base leading-relaxed text-black/80 md:text-lg">
           <p>
             Grandes cidades enfrentam problemas crescentes de mobilidade
             urbana, com trânsito intenso e altos níveis de poluição causados
@@ -80,7 +80,7 @@ function Solucao() {
           Nossa Proposta
         </h2>
 
-        <div className="space-y-4 text-base leading-relaxed text-white/90 md:text-lg">
+        <div className="space-y-4 text-base leading-relaxed text-black/80 md:text-lg">
           <p>
             O SoulPass transforma mobilidade urbana em uma experiência
             inteligente e sustentável, recompensando usuários por escolhas
@@ -193,7 +193,7 @@ function Solucao() {
           Como utilizar o SoulPass?
         </h2>
 
-        <p className="mb-8 text-base text-white/90 md:text-lg">
+        <p className="mb-8 text-base text-black/80 md:text-lg">
           Veja como utilizar o SoulPass em quatro passos simples.
         </p>
 
@@ -278,11 +278,11 @@ function Solucao() {
         </ul>
       </section>
         <section className="mx-auto mt-16 max-w-5xl pb-10 text-center">
-  <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+  <h2 className="mb-4 text-2xl font-bold text-black md:text-3xl">
     Quer fazer parte do SoulPass?
   </h2>
 
-  <p className="mb-6 text-base text-white/90 md:text-lg">
+  <p className="mb-6 text-base text-black/80 md:text-lg">
     Comece agora a participar da nossa plataforma.
   </p>
 
@@ -291,14 +291,14 @@ function Solucao() {
       onClick={() => navigate('/solucao/login')}
       className="
         rounded-xl
-        bg-white
+        bg-[#1193a0]
         px-6
         py-3
         font-bold
-        text-[#1193a0]
+        text-white
         transition
         duration-200
-        hover:bg-[#6bdcd6]
+        hover:bg-[#2db7ba]
       "
     >
       Entrar

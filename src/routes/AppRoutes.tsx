@@ -16,6 +16,7 @@ import PaginaVouchers from "../pages/Solucao/PaginaVouchers";
 
 import Contato from "../pages/Contato/Contato";
 import Faq from "../pages/FAQ/Faq";
+import NaoEncontrada from "../pages/NaoEncontrada/NaoEncontrada";
 
 function AppRoutes() {
   return (
@@ -47,6 +48,8 @@ function AppRoutes() {
             path="/solucao/vouchers"
             element={<PaginaVouchers />}
           />
+
+          <Route path="*" element={<NaoEncontrada />} />
         </Route>
       </Routes>
     </BrowserRouter>
