@@ -311,6 +311,13 @@ O código-fonte do projeto está disponível no GitHub:
 
 ---
 
+## Como Usar
+
+- **Aplicação:** https://soulpass-caio.vercel.app
+- **GitHub:** https://github.com/MariMari-Ramos/SoulPass
+- **API Java:** https://soulpass-api-l23x.onrender.com
+- **Vídeo de apresentação:** https://youtu.be/2xowiFybdBc
+
 ## Como Executar o Projeto
 
 ### 1. Clonar o repositório
